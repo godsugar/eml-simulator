@@ -88,7 +88,7 @@ export function FunctionGraph({ slot }: Props) {
           <ReferenceLine x={0} stroke="#d1d5db" />
           <ReferenceLine y={0} stroke="#d1d5db" />
           <Tooltip
-            formatter={(v) => typeof v === 'number' ? v.toFixed(4) : '未定義'}
+            formatter={(v) => typeof v === 'number' ? v.toFixed(4) : t.undefined}
             labelFormatter={(label) => `x = ${Number(label).toFixed(3)}`}
           />
           <Legend verticalAlign="top" height={28} />

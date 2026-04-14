@@ -45,6 +45,10 @@ export const translations = {
       '双曲線関数': '双曲線関数',
       'その他': 'その他',
     } as Record<string, string>,
+    presetLabels: {
+      '空のスロット': '空のスロット',
+    } as Record<string, string>,
+    undefined: '未定義',
   },
   en: {
     appTitle: 'EML Operator Simulator',
@@ -88,6 +92,10 @@ export const translations = {
       '双曲線関数': 'Hyperbolic',
       'その他': 'Other',
     } as Record<string, string>,
+    presetLabels: {
+      '空のスロット': 'Empty slot',
+    } as Record<string, string>,
+    undefined: 'undefined',
   },
 } as const satisfies Record<Lang, Record<string, unknown>>;
 

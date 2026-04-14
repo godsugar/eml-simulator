@@ -39,7 +39,7 @@ export function PresetSelector({ onSelect }: Props) {
                 onClick={() => onSelect(preset.expr)}
                 className="relative px-2.5 py-1 bg-white border border-gray-200 rounded-lg text-sm hover:bg-indigo-50 hover:border-indigo-300 transition-colors group"
               >
-                <span className="font-mono text-indigo-700">{preset.label}</span>
+                <span className="font-mono text-indigo-700">{t.presetLabels[preset.label] ?? preset.label}</span>
                 {preset.k > 0 && (
                   <span className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1 z-20 hidden group-hover:block bg-gray-700 text-white text-xs px-1.5 py-0.5 rounded whitespace-nowrap">
                     K={preset.k}

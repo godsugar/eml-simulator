@@ -52,12 +52,20 @@ export default function Page() {
                   <span className="ml-4 text-xs text-indigo-500">{t.grammar}: S → 1 | x | eml(S, S)</span>
                 </div>
               </div>
-              <button
-                onClick={() => setLang((l) => l === 'ja' ? 'en' : 'ja')}
-                className="shrink-0 mt-1 text-xs border border-gray-200 hover:border-indigo-300 hover:text-indigo-600 text-gray-500 rounded px-2.5 py-1 transition-colors font-mono"
-              >
-                {lang === 'ja' ? 'EN' : 'JA'}
-              </button>
+              <div className="shrink-0 mt-1 flex text-xs border border-gray-200 rounded overflow-hidden font-mono">
+                <button
+                  onClick={() => setLang('ja')}
+                  className={`px-2.5 py-1 transition-colors ${lang === 'ja' ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:text-indigo-600'}`}
+                >
+                  JP
+                </button>
+                <button
+                  onClick={() => setLang('en')}
+                  className={`px-2.5 py-1 transition-colors ${lang === 'en' ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:text-indigo-600'}`}
+                >
+                  EN
+                </button>
+              </div>
             </div>
           </div>
         </header>
@@ -86,7 +94,7 @@ export default function Page() {
                 </div>
                 <p className="text-xs text-gray-400">
                   {t.treeHint.split('_').map((part, i) =>
-                    i === 0 ? part : <><code key={i} className="bg-gray-100 px-1 rounded">_</code>{part}</>
+                    i === 0 ? part : <span key={i}><code className="bg-gray-100 px-1 rounded">_</code>{part}</span>
                   )}
                 </p>
                 <div className="min-h-[80px] overflow-x-auto">
