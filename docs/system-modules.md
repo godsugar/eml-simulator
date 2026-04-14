@@ -8,7 +8,8 @@ src/
 │   ├── complex.ts          複素数クラス
 │   ├── expr.ts             式木の型・評価・更新
 │   ├── presets.ts          プリセット式の定義
-│   └── identify.ts         関数同定・グラフデータ生成
+│   ├── identify.ts         関数同定・グラフデータ生成
+│   └── i18n.ts             翻訳辞書・LangContext・useLang フック
 ├── components/             UIコンポーネント（状態なし）
 │   ├── ExprNode.tsx        式木ビルダー（再帰）
 │   ├── ExprDisplay.tsx     括弧表記 / K値 / 深さの表示
@@ -77,6 +78,17 @@ src/
 
 独自の CANDIDATES 配列は廃止され、PRESETS をそのまま候補として使用する設計に変更された。プリセットを追加するだけで関数同定の比較対象も自動的に増える。
 
+サンプル点でエラーが発生した場合は候補全体を除外するのではなく、その点だけをスキップする。`MIN_VALID_POINTS = 3` 以上の有効点がない候補のみ除外される。
+
+### `i18n.ts` — 国際化
+
+| 要素 | 内容 |
+|------|------|
+| `Lang` 型 | `'ja' \| 'en'` の判別共用体 |
+| `translations` | `ja` / `en` キーを持つ翻訳辞書オブジェクト |
+| `LangContext` | `createContext<Lang>('ja')` — デフォルト日本語 |
+| `useLang()` | `useContext(LangContext)` を呼び出して現在言語の翻訳オブジェクトを返すフック |
+
 ---
 
 ## コンポーネント層 (`src/components/`)
@@ -118,7 +130,9 @@ header
 |-------|-----|------|
 | `slot` | `Slot` | 現在の式木 |
 | `treeExpanded` | `boolean` | 式木拡大モーダルの開閉 |
-| `treeCompact` | `boolean` | 式木のコンパクト表示モード |
+| `lang` | `Lang` | 表示言語（`'ja'` または `'en'`） |
+
+`lang` は `LangContext.Provider` を通じてコンポーネントツリー全体に配布される。各コンポーネントは `useLang()` フックで翻訳オブジェクトを取得する。
 
 ### 式木拡大モーダル
 
