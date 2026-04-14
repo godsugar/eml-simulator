@@ -25,7 +25,7 @@ export function PresetSelector({ onSelect }: Props) {
 
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-semibold text-gray-600">プリセット式（論文より）</h3>
+      <h3 className="text-sm font-semibold text-gray-600">プリセット式</h3>
       {CATEGORY_ORDER.filter((cat) => grouped[cat]).map((cat) => (
         <div key={cat} className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="text-xs text-gray-400 w-20 shrink-0">{cat}</span>
