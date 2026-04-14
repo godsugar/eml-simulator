@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { Slot, Path } from '@/lib/expr';
 import { PRESETS } from '@/lib/presets';
+import { useLang } from '@/lib/i18n';
 
 type Props = {
   slot: Slot;
@@ -13,6 +14,7 @@ type Props = {
 
 export function ExprNode({ slot, path, onSetSlot, compact = false }: Props) {
   const childProps = { onSetSlot, compact };
+  const t = useLang();
 
   if (slot.type === 'empty') {
     return <EmptySlot onSelect={(s) => onSetSlot(path, s)} compact={compact} />;
@@ -53,7 +55,7 @@ export function ExprNode({ slot, path, onSetSlot, compact = false }: Props) {
         <button
           onClick={() => onSetSlot(path, { type: 'empty' })}
           className="text-gray-400 hover:text-red-500 leading-none text-xs"
-          title="削除"
+          title={t.deleteNode}
         >
           ✕
         </button>
@@ -123,6 +125,7 @@ function calcSubPos(anchorRect: DOMRect, submenuWidth = 140, maxMenuHeight = 240
 // ─── EmptySlot ────────────────────────────────────────────────────────────────
 
 function EmptySlot({ onSelect, compact = false }: { onSelect: (slot: Slot) => void; compact?: boolean }) {
+  const t = useLang();
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState<DropdownPos | null>(null);
   const [catMenuPos, setCatMenuPos] = useState<SubPos | null>(null);
@@ -227,7 +230,7 @@ function EmptySlot({ onSelect, compact = false }: { onSelect: (slot: Slot) => vo
             onMouseEnter={handlePresetHover}
             className="px-3 py-1.5 text-sm text-left hover:bg-amber-50 text-amber-700 font-mono border-t border-gray-100 flex items-center justify-between gap-3"
           >
-            <span>プリセット</span>
+            <span>{t.preset}</span>
             <span className="text-xs">▶</span>
           </button>
         </div>
@@ -254,7 +257,7 @@ function EmptySlot({ onSelect, compact = false }: { onSelect: (slot: Slot) => vo
                   : 'hover:bg-amber-50 text-gray-700'
               }`}
             >
-              <span>{cat}</span>
+              <span>{t.categories[cat] ?? cat}</span>
               <span className="text-xs text-gray-400">▶</span>
             </button>
           ))}
@@ -304,6 +307,7 @@ function LeafChip({
   compact?: boolean;
   onRemove: () => void;
 }) {
+  const t = useLang();
   return (
     <div
       className={`inline-flex items-center gap-0.5 border rounded ${compact ? 'px-0.5 py-0' : 'px-1 py-0'} text-xs font-mono ${color}`}
@@ -313,7 +317,7 @@ function LeafChip({
       <button
         onClick={onRemove}
         className="text-gray-400 hover:text-red-500 ml-0.5 leading-none text-xs"
-        title="削除"
+        title={t.deleteNode}
       >
         ✕
       </button>

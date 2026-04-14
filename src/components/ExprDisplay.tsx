@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Slot, exprToString, leafCount, depth } from '@/lib/expr';
+import { useLang } from '@/lib/i18n';
 
 type Props = {
   slot: Slot;
@@ -9,6 +10,7 @@ type Props = {
 
 export function ExprDisplay({ slot }: Props) {
   const [copied, setCopied] = useState(false);
+  const t = useLang();
 
   const str = exprToString(slot);
   const k = leafCount(slot);
@@ -26,7 +28,7 @@ export function ExprDisplay({ slot }: Props) {
       <div className="flex items-start gap-2">
         <div
           className="font-mono text-sm text-gray-800 break-all overflow-y-auto flex-1"
-          style={{ maxHeight: '4.5em' /* 約3行 */ }}
+          style={{ maxHeight: '4.5em' }}
         >
           {str}
         </div>
@@ -39,8 +41,8 @@ export function ExprDisplay({ slot }: Props) {
         </button>
       </div>
       <div className="flex gap-4 text-xs text-gray-500">
-        <span>リーフ数 K = {k}</span>
-        <span>深さ = {d}</span>
+        <span>{t.leafCount} = {k}</span>
+        <span>{t.depth} = {d}</span>
       </div>
     </div>
   );

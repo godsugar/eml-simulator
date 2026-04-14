@@ -14,6 +14,7 @@ import {
 } from 'recharts';
 import { Expr, isComplete } from '@/lib/expr';
 import { generatePlotData } from '@/lib/identify';
+import { useLang } from '@/lib/i18n';
 
 type Props = {
   slot: import('@/lib/expr').Slot;
@@ -27,6 +28,7 @@ const parseOrFallback = (s: string, fallback: number) => {
 export function FunctionGraph({ slot }: Props) {
   const [xMinStr, setXMinStr] = useState('-1');
   const [xMaxStr, setXMaxStr] = useState('1');
+  const t = useLang();
 
   const xMin = parseOrFallback(xMinStr, -3);
   const xMax = parseOrFallback(xMaxStr, 3);
@@ -39,7 +41,7 @@ export function FunctionGraph({ slot }: Props) {
   if (!isComplete(slot)) {
     return (
       <div className="text-sm text-gray-400">
-        式を完成させるとグラフが表示されます
+        {t.graphEmpty}
       </div>
     );
   }
@@ -48,7 +50,7 @@ export function FunctionGraph({ slot }: Props) {
     <div className="space-y-3">
       <div className="flex items-center gap-4 text-xs text-gray-500">
         <label className="flex items-center gap-1.5">
-          x 最小
+          {t.xMin}
           <input
             type="number"
             value={xMinStr}
@@ -58,7 +60,7 @@ export function FunctionGraph({ slot }: Props) {
           />
         </label>
         <label className="flex items-center gap-1.5">
-          x 最大
+          {t.xMax}
           <input
             type="number"
             value={xMaxStr}
@@ -77,11 +79,11 @@ export function FunctionGraph({ slot }: Props) {
             type="number"
             domain={[xMin, xMax]}
             tickFormatter={(v) => v.toFixed(1)}
-            label={{ value: 'x (実軸)', position: 'insideBottom', offset: -12, fontSize: 11 }}
+            label={{ value: t.xAxisLabel, position: 'insideBottom', offset: -12, fontSize: 11 }}
           />
           <YAxis
             tickFormatter={(v) => v.toFixed(1)}
-            label={{ value: 'f(x)', angle: -90, position: 'insideLeft', fontSize: 11 }}
+            label={{ value: t.yAxisLabel, angle: -90, position: 'insideLeft', fontSize: 11 }}
           />
           <ReferenceLine x={0} stroke="#d1d5db" />
           <ReferenceLine y={0} stroke="#d1d5db" />

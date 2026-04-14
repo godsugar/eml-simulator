@@ -3,12 +3,15 @@
 import { useMemo } from 'react';
 import { Expr, isComplete } from '@/lib/expr';
 import { identifyFunction } from '@/lib/identify';
+import { useLang } from '@/lib/i18n';
 
 type Props = {
   slot: import('@/lib/expr').Slot;
 };
 
 export function FunctionIdentifier({ slot }: Props) {
+  const t = useLang();
+
   const results = useMemo(() => {
     if (!isComplete(slot)) return null;
     return identifyFunction(slot as Expr);
@@ -17,13 +20,13 @@ export function FunctionIdentifier({ slot }: Props) {
   if (!isComplete(slot)) {
     return (
       <div className="text-sm text-gray-400">
-        式を完成させると候補関数との一致度が表示されます
+        {t.idEmpty}
       </div>
     );
   }
 
   if (!results || results.length === 0) {
-    return <div className="text-sm text-gray-400">評価できませんでした</div>;
+    return <div className="text-sm text-gray-400">{t.idFailed}</div>;
   }
 
   const matched = results.filter((r) => r.matched);
@@ -33,7 +36,7 @@ export function FunctionIdentifier({ slot }: Props) {
     <div className="space-y-3">
       {matched.length > 0 && (
         <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-          <div className="text-xs font-semibold text-green-700 mb-1">一致した関数</div>
+          <div className="text-xs font-semibold text-green-700 mb-1">{t.matched}</div>
           <div className="flex flex-wrap gap-2">
             {matched.map((r) => (
               <span
@@ -49,7 +52,7 @@ export function FunctionIdentifier({ slot }: Props) {
       )}
 
       <div>
-        <div className="text-xs text-gray-500 mb-1.5">候補との最大誤差（上位8件）</div>
+        <div className="text-xs text-gray-500 mb-1.5">{t.topCandidates}</div>
         <div className="space-y-1">
           {topCandidates.map((r) => {
             const pct = Math.max(0, 1 - Math.log10(r.maxError + 1e-12) / -12);

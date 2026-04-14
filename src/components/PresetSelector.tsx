@@ -2,6 +2,7 @@
 
 import { PRESETS } from '@/lib/presets';
 import { Slot } from '@/lib/expr';
+import { useLang } from '@/lib/i18n';
 
 type Props = {
   onSelect: (expr: Slot) => void;
@@ -18,6 +19,8 @@ const CATEGORY_ORDER = [
 ];
 
 export function PresetSelector({ onSelect }: Props) {
+  const t = useLang();
+
   const grouped = PRESETS.reduce<Record<string, typeof PRESETS>>((acc, p) => {
     (acc[p.category] ??= []).push(p);
     return acc;
@@ -25,10 +28,10 @@ export function PresetSelector({ onSelect }: Props) {
 
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-semibold text-gray-600">プリセット式</h3>
+      <h3 className="text-sm font-semibold text-gray-600">{t.presetTitle}</h3>
       {CATEGORY_ORDER.filter((cat) => grouped[cat]).map((cat) => (
         <div key={cat} className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className="text-xs text-gray-400 w-20 shrink-0">{cat}</span>
+          <span className="text-xs text-gray-400 w-20 shrink-0">{t.categories[cat] ?? cat}</span>
           <div className="flex flex-wrap gap-1.5">
             {grouped[cat].map((preset) => (
               <button
