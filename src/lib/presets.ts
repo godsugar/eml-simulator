@@ -157,7 +157,7 @@ export const PRESETS: Preset[] = [
   },
   {
     label: '1',
-    description: 'K=1 — 文法の基底項',
+    description: 'eml(0, 1) = exp(0) − ln(1) = 1 − 0 = 1',
     expr: one,
     k: 1,
     category: '定数',
