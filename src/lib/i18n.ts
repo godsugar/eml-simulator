@@ -101,7 +101,7 @@ export const translations = {
 
 export type Translations = typeof translations.ja;
 
-export const LangContext = createContext<Lang>('ja');
+export const LangContext = createContext<Lang>('en');
 
 export function useLang(): Translations {
   const lang = useContext(LangContext);

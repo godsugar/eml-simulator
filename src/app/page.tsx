@@ -16,7 +16,7 @@ const FunctionGraph = dynamic(() => import('@/components/FunctionGraph').then((m
 export default function Page() {
   const [slot, setSlot_] = useState<Slot>({ type: 'empty' });
   const [treeExpanded, setTreeExpanded] = useState(false);
-  const [lang, setLang] = useState<Lang>('ja');
+  const [lang, setLang] = useState<Lang>('en');
 
   const t = translations[lang];
 
